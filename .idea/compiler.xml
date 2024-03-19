@@ -6,8 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="shopping-mall" />
+        <module name="shopmall-order-service" />
+        <module name="shopmall-common" />
+        <module name="shopmall-gateway" />
+        <module name="shopmall-product-service" />
+        <module name="shopmall-user-service" />
+        <module name="shopmall-coupon-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="shoppmall-gateway" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
