@@ -6,3 +6,10 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+shopmall-common/target/
+shopmall-coupon-service/target/
+shopmall-gateway/target/
+shopmall-order-service/target/
+shopmall-product-service/target/
+shopmall-user-service/target/
