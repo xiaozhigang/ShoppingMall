@@ -15,3 +15,5 @@ target/
 .idea/
 #忽略所有.iml文件
 *.iml
+
+/target/
