@@ -7,9 +7,11 @@
 /dataSources/
 /dataSources.local.xml
 
-shopmall-common/target/
-shopmall-coupon-service/target/
-shopmall-gateway/target/
-shopmall-order-service/target/
-shopmall-product-service/target/
-shopmall-user-service/target/
+#忽略所有.svn目录
+.svn/
+#忽略所有target目录
+target/
+#忽略所有.idea目录
+.idea/
+#忽略所有.iml文件
+*.iml
