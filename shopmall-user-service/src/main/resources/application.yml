@@ -10,7 +10,12 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/shopmall_user?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: root
+    password: 123456
+
+  redis:
+    host: 121.36.144.151
+    password: 123456
+    port: 8000
 
 #配置plus打印sql日志
 mybatis-plus:
