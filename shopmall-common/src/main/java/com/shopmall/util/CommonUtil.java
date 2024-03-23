@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.MessageDigest;
+import java.util.Random;
 
 /**
  * 公共工具类
@@ -63,7 +64,12 @@ public class CommonUtil {
     }
 
 
-
+    /**
+     * MD5加密
+     *
+     * @param data data
+     * @return String
+     */
     public static String MD5(String data)  {
         try {
             java.security.MessageDigest md = MessageDigest.getInstance("MD5");
@@ -80,4 +86,31 @@ public class CommonUtil {
         return null;
 
     }
+
+    /**
+     * 获取当前时间戳
+     *
+     * @return long
+     */
+    public static long getCurrentTimestamp() {
+        return System.currentTimeMillis();
+    }
+
+    /**
+     * 获取验证码随机数
+     *
+     * @param length length
+     * @return String
+     */
+    public static String getRandomCode(int length) {
+
+        String sources = "0123456789";
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+        for (int j = 0; j < length; j++) {
+            sb.append(sources.charAt(random.nextInt(9)));
+        }
+        return sb.toString();
+    }
+
 }
