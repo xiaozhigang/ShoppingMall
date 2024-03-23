@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author xiao
@@ -34,6 +36,9 @@ public class NotifyController {
     @Autowired
     private Producer captchaProducer;
 
+    @Autowired
+    private StringRedisTemplate redisTemplate;
+
 
     /**
      * 获取图形验证码
@@ -48,7 +53,8 @@ public class NotifyController {
 
         String capText = captchaProducer.createText();
 
-        //存储     redisTemplate.opsForValue().set(cacheKey,capText,CAPTCHA_CODE_EXPIRED,TimeUnit.MILLISECONDS);
+        // 存储
+        redisTemplate.opsForValue().set(cacheKey,capText,CAPTCHA_CODE_EXPIRED, TimeUnit.MILLISECONDS);
 
         BufferedImage bi = captchaProducer.createImage(capText);
         ServletOutputStream out = null;
@@ -68,12 +74,12 @@ public class NotifyController {
     }
 
     /**
-     * 获取缓存的key
-     * @param request
-     * @return
+     * 获取缓存的key ，根据浏览器内核生成唯一值
+     *
+     * @param request request
+     * @return String
      */
     private String getCaptchaKey(HttpServletRequest request){
-
         String ip = CommonUtil.getIpAddr(request);
         String userAgent = request.getHeader("User-Agent");
 
@@ -84,6 +90,5 @@ public class NotifyController {
         log.info("key={}",key);
 
         return key;
-
     }
 }

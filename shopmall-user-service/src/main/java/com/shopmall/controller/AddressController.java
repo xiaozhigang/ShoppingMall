@@ -5,8 +5,10 @@ import com.shopmall.model.AddressDO;
 import com.shopmall.service.AddressService;
 import com.shopmall.util.JsonData;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,6 +30,8 @@ public class AddressController {
     @Autowired
     private AddressService addressService;
 
+    @ApiOperation("获取地址详情")
+    @GetMapping("detail")
     public Object detail(@ApiParam(value = "地址id", required = true)@PathVariable("address_id") long addressId){
         AddressDO detail = addressService.detail(addressId);
         return JsonData.buildSuccess(detail);

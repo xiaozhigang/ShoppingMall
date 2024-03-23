@@ -52,9 +52,9 @@ public class MyBatisPlusGenerator {
         dsConfig.setDbType(DbType.MYSQL)
                 .setDriverName("com.mysql.cj.jdbc.Driver")
                 //TODO  TODO  TODO  TODO
-                .setUrl("jdbc:mysql://127.0.0.1:3306/shopmall_user?useSSL=false")
+                .setUrl("jdbc:mysql://47.92.119.44:3306/shopmall_user?useSSL=false")
                 .setUsername("root")
-                .setPassword("123456");
+                .setPassword("root");
 
         //3. 策略配置globalConfiguration中
         StrategyConfig stConfig = new StrategyConfig();
