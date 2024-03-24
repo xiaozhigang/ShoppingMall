@@ -19,11 +19,12 @@ public class MailServiceImpl implements MailService {
     @Autowired
     private JavaMailSender mailSender;
 
+
     @Value("${spring.mail.from}")
     private String from;
 
     @Override
-    public void sendSimpleMail(String to, String subject, String content) {
+    public void sendMail(String to, String subject, String content) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(from);
         mailMessage.setTo(to);

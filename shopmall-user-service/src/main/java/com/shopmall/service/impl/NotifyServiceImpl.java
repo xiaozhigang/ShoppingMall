@@ -63,7 +63,7 @@ public class NotifyServiceImpl implements NotifyService {
             String code = CommonUtil.getRandomCode(6);
             String value = code + "_" + CommonUtil.getCurrentTimestamp();
             redisTemplate.opsForValue().set(cacheKey, value, CODE_EXPIRED, TimeUnit.MILLISECONDS);
-            mailService.sendSimpleMail(to, SUBJECT, String.format(CONTENT, code));
+            mailService.sendMail(to, SUBJECT, String.format(CONTENT, code));
             return JsonData.buildSuccess();
         } else if (CheckUtil.isPhone(to)) {
             // TODO
