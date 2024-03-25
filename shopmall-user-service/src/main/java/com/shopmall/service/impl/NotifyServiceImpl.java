@@ -52,7 +52,7 @@ public class NotifyServiceImpl implements NotifyService {
         String cacheKey = String.format(CacheKey.CHECK_CODE_KEY, sendCodeEnum.name(), to);
         String cacheValue = redisTemplate.opsForValue().get(cacheKey);
         if (StringUtils.isNotBlank(cacheValue)) {
-            long time = Long.parseLong(cacheKey.split("_")[1]);
+            long time = Long.parseLong(cacheValue.split("_")[1]);
             if (CommonUtil.getCurrentTimestamp() - time < 1000 * 60) {
                 log.info("重复发送验证码，时间间隔：{}秒", (CommonUtil.getCurrentTimestamp() - time) / 1000);
                 return JsonData.buildResult(BizCodeEnum.CODE_LIMITED);
