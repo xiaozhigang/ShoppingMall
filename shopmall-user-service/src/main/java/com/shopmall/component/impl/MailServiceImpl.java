@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class MailServiceImpl implements MailService {
+    public static ThreadLocal<String> localVariable = new ThreadLocal<>();
 
     @Autowired
     private JavaMailSender mailSender;
@@ -32,5 +33,6 @@ public class MailServiceImpl implements MailService {
         mailMessage.setText(content);
         mailSender.send(mailMessage);
         log.info("邮件发送成功：{}", mailMessage.toString());
+        localVariable.set("test");
     }
 }

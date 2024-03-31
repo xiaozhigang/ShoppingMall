@@ -7,6 +7,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * 公共工具类
@@ -111,6 +112,15 @@ public class CommonUtil {
             sb.append(sources.charAt(random.nextInt(9)));
         }
         return sb.toString();
+    }
+
+    /**
+     * 生成32位UUID
+     *
+     * @return String
+     */
+    public static String generateUUID(){
+        return UUID.randomUUID().toString().replaceAll("-","").substring(0,32);
     }
 
 }
