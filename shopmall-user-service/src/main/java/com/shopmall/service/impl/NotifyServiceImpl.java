@@ -74,6 +74,15 @@ public class NotifyServiceImpl implements NotifyService {
 
     @Override
     public boolean checkCode(SendCodeEnum sendCodeEnum, String to, String code) {
+        String cacheKey = String.format(CacheKey.CHECK_CODE_KEY, sendCodeEnum.name(), to);
+        String cacheValue = redisTemplate.opsForValue().get(cacheKey);
+        if(StringUtils.isNotBlank(cacheValue)){
+            String cacheCode = cacheValue.split("_")[0];
+            if(cacheCode.equals(code)){
+                redisTemplate.delete(cacheKey);
+                return true;
+            }
+        }
         return false;
     }
 }

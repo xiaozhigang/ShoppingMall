@@ -115,6 +115,23 @@ public class CommonUtil {
     }
 
     /**
+     * 获取随机长度的串
+     *
+     * @param length length
+     * @return String
+     */
+    public static String getStringNumRandom(int length) {
+        String allCharNum = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        //生成随机数字和字母,
+        Random random = new Random();
+        StringBuilder saltString = new StringBuilder(length);
+        for (int i = 1; i <= length; ++i) {
+            saltString.append(allCharNum.charAt(random.nextInt(allCharNum.length())));
+        }
+        return saltString.toString();
+    }
+
+    /**
      * 生成32位UUID
      *
      * @return String

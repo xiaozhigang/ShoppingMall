@@ -56,6 +56,9 @@ public class UserDO implements Serializable {
      */
     private Integer points;
 
+    /**
+     * 创建时间
+     */
     private Date createTime;
 
     /**
@@ -67,6 +70,4 @@ public class UserDO implements Serializable {
      * 盐，用于个人敏感信息处理
      */
     private String secret;
-
-
 }
