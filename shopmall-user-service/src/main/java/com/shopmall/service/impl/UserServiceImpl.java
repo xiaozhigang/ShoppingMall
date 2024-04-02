@@ -5,12 +5,15 @@ import com.shopmall.component.fegin.CouponFeignService;
 import com.shopmall.enums.BizCodeEnum;
 import com.shopmall.enums.SendCodeEnum;
 import com.shopmall.mapper.UserMapper;
+import com.shopmall.model.LoginUser;
 import com.shopmall.model.UserDO;
 import com.shopmall.request.NewUserCouponRequest;
+import com.shopmall.request.UserLoginRequest;
 import com.shopmall.request.UserRegisterRequest;
 import com.shopmall.service.NotifyService;
 import com.shopmall.service.UserService;
 import com.shopmall.util.CommonUtil;
+import com.shopmall.util.JWTUtil;
 import com.shopmall.util.JsonData;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.Md5Crypt;
@@ -104,5 +107,29 @@ public class UserServiceImpl implements UserService {
 //        }
         log.info("发放新用户注册优惠卷:{}，结果:{}",request.toString(),jsonData.toString());
 
+    }
+
+    @Override
+    public JsonData login(UserLoginRequest  request){
+        List<UserDO> userList = userMapper.selectList(new QueryWrapper<UserDO>().eq("mail", request.getMail()));
+        if(userList != null && userList.size() ==1){
+            UserDO user = userList.get(0);
+            String crypt = Md5Crypt.md5Crypt(request.getPwd().getBytes(), user.getSecret());
+            if(crypt.equals(user.getPwd())){
+                LoginUser loginUser = LoginUser.builder().build();
+                BeanUtils.copyProperties(user,loginUser);
+                String token = JWTUtil.geneJsonWebToken(loginUser);
+                // accessToken
+                // accessToken的过期时间
+                // UUID生成一个token
+                //String refreshToken = CommonUtil.generateUUID();
+                //redisTemplate.opsForValue().set(refreshToken,"1",1000*60*60*24*30);
+                return JsonData.buildSuccess(token);
+            }else {
+                return JsonData.buildResult(BizCodeEnum.ACCOUNT_PWD_ERROR);
+            }
+        }else {
+            return JsonData.buildResult(BizCodeEnum.ACCOUNT_UNREGISTER);
+        }
     }
 }
