@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.shopmall.component.fegin.CouponFeignService;
 import com.shopmall.enums.BizCodeEnum;
 import com.shopmall.enums.SendCodeEnum;
+import com.shopmall.interceptor.LoginInterceptor;
 import com.shopmall.mapper.UserMapper;
 import com.shopmall.model.LoginUser;
 import com.shopmall.model.UserDO;
@@ -15,6 +16,7 @@ import com.shopmall.service.UserService;
 import com.shopmall.util.CommonUtil;
 import com.shopmall.util.JWTUtil;
 import com.shopmall.util.JsonData;
+import com.shopmall.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.commons.lang3.StringUtils;
@@ -132,4 +134,19 @@ public class UserServiceImpl implements UserService {
             return JsonData.buildResult(BizCodeEnum.ACCOUNT_UNREGISTER);
         }
     }
+
+    /**
+     * 查找用户详情
+     *
+     * @return UserVO
+     */
+    @Override
+    public UserVO findUserDetail(){
+        LoginUser loginUser = LoginInterceptor.threadLocal.get();
+        UserDO userDO = userMapper.selectOne(new QueryWrapper<UserDO>().eq("id", loginUser.getId()));
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(userDO, userVO);
+        return userVO;
+    }
+
 }

@@ -19,6 +19,8 @@ public enum BizCodeEnum {
     CODE_ERROR(240003,"验证码错误"),
     CODE_CAPTCHA_ERROR(240101,"图形验证码错误"),
 
+    ACCOUNT_UNLOGIN(250004,"账号未登录"),
+
     /**
      * 账号
      */

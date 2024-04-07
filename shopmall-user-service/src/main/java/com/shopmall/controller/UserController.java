@@ -3,9 +3,11 @@ package com.shopmall.controller;
 
 import com.shopmall.enums.BizCodeEnum;
 import com.shopmall.request.UserLoginRequest;
+import com.shopmall.request.UserRegisterRequest;
 import com.shopmall.service.FileService;
 import com.shopmall.service.UserService;
 import com.shopmall.util.JsonData;
+import com.shopmall.vo.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -40,18 +42,33 @@ public class UserController {
     }
 
     /**
+     * 用户注册
+     */
+    @ApiOperation("用户注册")
+    @PostMapping("register")
+    public JsonData register(@ApiParam("用户注册对象") @RequestBody UserRegisterRequest registerRequest) {
+
+        return userService.register(registerRequest);
+    }
+
+    /**
      * 用户登录
-     *
-     *
      */
     @ApiOperation("用户登录")
     @PostMapping("login")
-    public JsonData login(@ApiParam("用户登录对象") @RequestBody UserLoginRequest userLoginRequest){
+    public JsonData login(@ApiParam("用户登录对象") @RequestBody UserLoginRequest userLoginRequest) {
 
+        return userService.login(userLoginRequest);
+    }
 
-        JsonData jsonData = userService.login(userLoginRequest);
-
-        return jsonData;
+    /**
+     * 用户个人信息
+     */
+    @ApiOperation("个人信息查询")
+    @GetMapping("detail")
+    public JsonData detail() {
+        UserVO userDetail = userService.findUserDetail();
+        return JsonData.buildSuccess(userDetail);
     }
 }
 
